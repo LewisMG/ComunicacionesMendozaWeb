@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComunicacionesMendozaAP2", "ComunicacionesMendozaAP2\ComunicacionesMendozaAP2.csproj", "{811EFFFA-E53F-4E5C-BA75-C4C361E0FAA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComunicacionesMendozaAP2.Tests", "ComunicacionesMendozaAP2.Tests\ComunicacionesMendozaAP2.Tests.csproj", "{599CF9BE-3C32-4919-A647-19B199938750}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{811EFFFA-E53F-4E5C-BA75-C4C361E0FAA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{811EFFFA-E53F-4E5C-BA75-C4C361E0FAA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{811EFFFA-E53F-4E5C-BA75-C4C361E0FAA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{811EFFFA-E53F-4E5C-BA75-C4C361E0FAA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{599CF9BE-3C32-4919-A647-19B199938750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{599CF9BE-3C32-4919-A647-19B199938750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{599CF9BE-3C32-4919-A647-19B199938750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{599CF9BE-3C32-4919-A647-19B199938750}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5307CBA7-ACE9-4DEA-A13A-A81040C023C1}
+	EndGlobalSection
+EndGlobal
