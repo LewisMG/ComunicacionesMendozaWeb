@@ -54,44 +54,20 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             return p;
         }
 
-        private bool Verificar()
-        {
-            bool paso = false;
-            bool resultado = Regex.IsMatch(DescripcionTextBox.Text, @"^[a-z A-Z]+$");
-            if (!resultado)
-            {
-                resultado = Regex.IsMatch(DescripcionTextBox.Text, @"^[a-z A-Z]+$");
-                if (resultado)
-                {
-                    paso = false;
-                }
-                else
-                {
-                    paso = true;
-                    Utils.ShowToastr(this, "Solo Letras", "Fallo", "error");
-                }
-                Utils.ShowToastr(this, "Solo Letras", "Fallo", "error");
-                paso = true;
-            }
-            return paso;
-        }
-
         protected void PrecioTextBox_TextChanged(object sender, EventArgs e)
         {
             decimal costo = Convert.ToInt32(CostoTextBox.Text);
             decimal precio = Convert.ToInt32(PrecioTextBox.Text);
-            decimal ganancia = 0;
 
-            if (precio > costo && GananciaTextBox.Text == "0")
+            if (costo > precio)
             {
-                ganancia = Metodos.CalcularGanancia(precio, costo);
-                GananciaTextBox.Text = ganancia.ToString();
+                Utils.ShowToastr(this, "No puede tener más alto el costo que el precio", "Error Perdida!", "error");
+                return;
             }
             else
-            {
-                Utils.ShowToastr(this, "No Se Ha podido Calcular", "Error", "error");
-            }
+                GananciaTextBox.Text = Metodos.CalcularGanancia(costo, precio).ToString();
         }
+
 
         protected void BtnBuscar_Click(object sender, EventArgs e)
         {
@@ -100,12 +76,13 @@ namespace ComunicacionesMendozaAP2.UI.Registros
 
             if (p != null)
             {
+                LimpiarCampos();
                 LlenaCampos(p);
-
                 Utils.ShowToastr(this, "Encontrado!!", "Exito", "info");
             }
             else
             {
+                LimpiarCampos();
                 Utils.ShowToastr(this, "No Hay Resultado", "Error", "error");
             }
             if (Utils.ToInt(ProductoIdTextBox.Text) == 0)
@@ -125,11 +102,6 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             Productos p = new Productos();
             bool paso = false;
 
-            if (Verificar())
-            {
-                Utils.ShowToastr(this, "Solo Letras!", "Error", "error");
-                return;
-            }
             p = LlenaClase();
 
             if (p.ProductoId == 0)

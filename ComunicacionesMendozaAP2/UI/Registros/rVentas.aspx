@@ -11,19 +11,19 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" for="VentaIdTextBox">Venta ID:</label>
                 <div class="col-sm-1 col-md-2 col-xs4">
-                    <asp:TextBox type="Number" class="form-control" ID="VentaIdTextBox" Text="0" runat="server"></asp:TextBox>
+                    <asp:TextBox type="Number" class="form-control" ID="VentaIdTextBox" placeholder="0" runat="server"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="VentaIdTextBoxRequiredFieldValidator" runat="server" ErrorMessage="Ingrese solo numero!" ControlToValidate="VentaIdTextBox" ValidationGroup="Buscar" Display="Dynamic" Font-Bold="True" ForeColor="Red">*</asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="VentaIdTextBoxRegularExpressionValidator" runat="server" ErrorMessage="Ingrese solo numeros!" ControlToValidate="VentaIdTextBox" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>
                 </div>
                 <div class="col-sm-1 col-md-1 col-xs-2">
-                    <asp:Button ID="BuscarButton" runat="server" Text="Buscar" class="btn btn-primary" ValidationGroup="Buscar" />
+                    <asp:Button ID="BuscarButton" runat="server" Text="Buscar" class="btn btn-primary" ValidationGroup="Buscar" OnClick="BuscarButton_Click" />
                 </div>
                 <div>
                     <label class="control-label col-sm-3" for="FechaTextBox">Fecha:</label>
                 </div>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <div class="col-sm-1 col-md-2 col-xs4">
-                    <asp:TextBox ID="TextBox1" class="form-control input-group" TextMode="Date" runat="server" Enabled="true" ReadOnly="True" />
+                    <asp:TextBox ID="FechaTextBox" class="form-control input-group" TextMode="Date" runat="server" Enabled="true" ReadOnly="True" />
                 </div>
             </div>
             <br>
@@ -63,25 +63,27 @@
             <div class="form-row">
                 <div class="form-group col-md-2">
                     <asp:Label ID="Label3" runat="server" Text="Producto:"></asp:Label>
-                    <asp:DropDownList class="form-control" ID="ProductoDropDownList" runat="server" Width="240px"></asp:DropDownList>
+                    <asp:DropDownList class="form-control" ID="ProductoDropDownList" runat="server" Width="240px" OnSelectedIndexChanged="ProductoDropDownList_SelectedIndexChanged"></asp:DropDownList>
                 </div>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <div class="form-group col-md-2">
                     <asp:Label ID="Label1" runat="server" Text="Cantidad:"></asp:Label>
-                    <asp:TextBox class="form-control" ID="CantidadTextBox" runat="server" Width="150px"></asp:TextBox>
+                    <asp:TextBox class="form-control" type="Number" ID="CantidadTextBox" AutoPostback="true" placeholder="0" runat="server" Width="150px" OnTextChanged="CantidadTextBox_TextChanged"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Ingrese solo numero!" ControlToValidate="CantidadTextBox" ValidationGroup="guardar" Display="Dynamic" Font-Bold="True" ForeColor="Red">*</asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Ingrese solo numeros!" ControlToValidate="CantidadTextBox" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>
                 </div>
                 <div class="form-group col-md-2">
                     <asp:Label ID="Label2" runat="server" Text="Precio:"></asp:Label>
-                    <asp:TextBox class="form-control" ID="PrecioTextBox" runat="server" ReadOnly="true" Width="150px"></asp:TextBox>
+                    <asp:TextBox class="form-control" type="Number" ID="PrecioTextBox" AutoPostback="true" placeholder="0" runat="server" ReadOnly="true" Width="150px"></asp:TextBox>
                 </div>
                 <div class="form-group col-md-1">
                     <asp:Label ID="Label8" runat="server" Text="Importe:"></asp:Label>
-                    <asp:TextBox class="form-control" ID="ImporteTextBox" runat="server" ReadOnly="true" Width="150px"></asp:TextBox>
+                    <asp:TextBox class="form-control" type="Number" ID="ImporteTextBox" AutoPostback="true" placeholder="0" runat="server" ReadOnly="true" Width="150px"></asp:TextBox>
                 </div>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <div class="col-lg-0 p-4">
-                    <asp:Button ID="ButtonAgregar" runat="server" Text="Agregar" class="btn btn-info" />
-                    <asp:Button ID="ButtonRemover" runat="server" Text="Remover" class="btn btn-danger" />
+                    <asp:Button ID="ButtonAgregar" runat="server" Text="Agregar" class="btn btn-info" OnClick="ButtonAgregar_Click" />
+                    <asp:Button ID="ButtonRemover" runat="server" Text="Remover" class="btn btn-danger" OnClick="ButtonRemover_Click" />
                 </div>
             </div>
             <hr>
@@ -114,12 +116,12 @@
                 <div class="text-center">
                     <div class="form-group">
                         <asp:Label ID="NombreLabel" runat="server" Text="SubTotal:" Font-Bold="True" Font-Italic="True"></asp:Label>
-                        <asp:Label ID="SubTotalLabel" runat="server" Text=""></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Label ID="SubTotalLabel" runat="server" AutoPostback="true" Text=""></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:Label ID="Label5" runat="server" Text="Itbis 18%:" Font-Bold="True" Font-Italic="True"></asp:Label>
-                        <asp:Label ID="ItbisLabel" runat="server" Text=""></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Label ID="ItbisLabel" runat="server" AutoPostback="true" Text=""></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;
                         <asp:Label ID="Label6" runat="server" Text="Total:" Font-Bold="True" Font-Italic="True"></asp:Label>
-                        <asp:Label ID="TotalLabel" runat="server" Text=""></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:Button ID="ButtonImprimir" runat="server" Text="Imprimir" class="btn btn-success btn-sm" />
+                        <asp:Label ID="TotalLabel" runat="server" AutoPostback="true" Text=""></asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Button ID="ButtonImprimir" runat="server" Text="Imprimir" class="btn btn-success btn-sm" OnClick="ButtonImprimir_Click" />
                     </div>
                 </div>
             </div>
@@ -127,9 +129,9 @@
             <div class="panel">
                 <div class="text-center">
                     <div class="form-group">
-                        <asp:Button ID="BtnNuevo" runat="server" Text="Nuevo" class="btn btn-warning" />
-                        <asp:Button ID="BtnGuardar" runat="server" Text="Guardar" class="btn btn-success" ValidationGroup="Guardar" />
-                        <asp:Button ID="BtnEliminar" runat="server" Text="Eliminar" class="btn btn-danger" ValidationGroup="Buscar" />
+                        <asp:Button ID="BtnNuevo" runat="server" Text="Nuevo" class="btn btn-warning" OnClick="BtnNuevo_Click" />
+                        <asp:Button ID="BtnGuardar" runat="server" Text="Guardar" class="btn btn-success" ValidationGroup="guardar" OnClick="BtnGuardar_Click" />
+                        <asp:Button ID="BtnEliminar" runat="server" Text="Eliminar" class="btn btn-danger" ValidationGroup="Buscar" OnClick="BtnEliminar_Click" />
                     </div>
                 </div>
             </div>

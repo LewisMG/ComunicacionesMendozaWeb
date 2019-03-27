@@ -39,7 +39,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" for="CostoTextBox">Costo:</label>
                 <div class="col-sm-1 col-md-5">
-                    <asp:TextBox type="Number" class="form-control" ID="CostoTextBox" Text="0" runat="server"></asp:TextBox>
+                    <asp:TextBox type="Number" class="form-control" ID="CostoTextBox" placeholder="0" runat="server"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="CostoTextBoxRequiredFieldValidator" runat="server" ErrorMessage="Ingrese solo Numero!" ValidationGroup="guardar" ControlToValidate="CostoTextBox" Display="Dynamic" Font-Bold="True" ForeColor="Red">*</asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="CostoTextBoxRegularExpressionValidator" runat="server" ErrorMessage="Ingrese solo Numero!" ControlToValidate="CostoTextBox" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>              
                 </div>
@@ -48,8 +48,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" for="PrecioTextBox">Precio:</label>
                 <div class="col-sm-1 col-md-5">
-                    <span class="label label-warning">Luego de introducir precio presione enter.</span>
-                    <asp:TextBox type="Number" class="form-control" ID="PrecioTextBox" Text="0" runat="server" OnTextChanged="PrecioTextBox_TextChanged"></asp:TextBox>
+                    <asp:TextBox type="Number" class="form-control" ID="PrecioTextBox" AutoPostback="true" placeholder="0" runat="server" OnTextChanged="PrecioTextBox_TextChanged"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="PrecioTextBoxRequiredFieldValidator" runat="server" ErrorMessage="Ingrese solo Numero!" ValidationGroup="guardar" ControlToValidate="PrecioTextBox" Display="Dynamic" Font-Bold="True" ForeColor="Red">*</asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="PrecioTextBoxRegularExpressionValidator" runat="server" ErrorMessage="Ingrese solo Numero!" ControlToValidate="PrecioTextBox" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>              
                 </div>
@@ -58,14 +57,14 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" for="GananciaTextBox">Ganancia:</label>
                 <div class="col-sm-1 col-md-5">
-                    <asp:TextBox type="Number" class="form-control" ID="GananciaTextBox" Text="0" runat="server" ReadOnly="True"></asp:TextBox>
+                    <asp:TextBox type="Number" class="form-control" ID="GananciaTextBox" AutoPostback="true" placeholder="0" runat="server" ReadOnly="True"></asp:TextBox>
                 </div>
             </div>
             <br>
             <div class="form-group row">
                 <label class="control-label col-sm-2" for="InventarioTextBox">Inventario:</label>
                 <div class="col-sm-1 col-md-5">
-                    <asp:TextBox type="Number" class="form-control" ID="InventarioTextBox" Text="0" runat="server" ReadOnly="True"></asp:TextBox>
+                    <asp:TextBox type="Number" class="form-control" ID="InventarioTextBox" placeholder="0" runat="server" ReadOnly="True"></asp:TextBox>
                 </div>
             </div>
             <hr>

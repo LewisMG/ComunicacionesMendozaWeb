@@ -175,6 +175,15 @@ namespace ComunicacionesMendozaAP2.UI.Registros {
         protected global::System.Web.UI.WebControls.TextBox CorreoTextBox;
         
         /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
         /// ContraseñaTextBox control.
         /// </summary>
         /// <remarks>
@@ -184,22 +193,13 @@ namespace ComunicacionesMendozaAP2.UI.Registros {
         protected global::System.Web.UI.WebControls.TextBox ContraseñaTextBox;
         
         /// <summary>
-        /// ContraseñaTextBoxRequiredFieldValidator control.
+        /// RequiredFieldValidator2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator ContraseñaTextBoxRequiredFieldValidator;
-        
-        /// <summary>
-        /// ContraseñaTextBoxRegularExpressionValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator ContraseñaTextBoxRegularExpressionValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
         /// VContraseñaTextBox control.
@@ -211,22 +211,13 @@ namespace ComunicacionesMendozaAP2.UI.Registros {
         protected global::System.Web.UI.WebControls.TextBox VContraseñaTextBox;
         
         /// <summary>
-        /// VContraseñaTextBoxRequiredFieldValidator control.
+        /// RequiredFieldValidator3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator VContraseñaTextBoxRequiredFieldValidator;
-        
-        /// <summary>
-        /// VContraseñaTextBoxRegularExpressionValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator VContraseñaTextBoxRegularExpressionValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
         
         /// <summary>
         /// TotalVendidoTextBox control.

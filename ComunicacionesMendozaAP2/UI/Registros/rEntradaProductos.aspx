@@ -10,12 +10,12 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" for="EProductoIdTextBox">Id:</label>
                 <div class="col-sm-1 col-md-4 col-xs6">
-                    <asp:TextBox type="Number" class="form-control" ID="EProductoIdTextBox" Text="0" runat="server"></asp:TextBox>
+                    <asp:TextBox type="Number" class="form-control" ID="EProductoIdTextBox" placeholder="0" runat="server"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="EProductoIdTextBoxRequiredFieldValidator" runat="server" ErrorMessage="Ingrese solo numero!" ControlToValidate="EProductoIdTextBox" ValidationGroup="Buscar" Display="Dynamic" Font-Bold="True" ForeColor="Red">*</asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="EProductoIdTextBoxRegularExpressionValidator" runat="server" ErrorMessage="Ingrese solo numeros!" ControlToValidate="EProductoIdTextBox" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>
                 </div>
                 <div class="col-sm-1 col-md-4 col-xs6">
-                    <asp:Button ID="BuscarButton" runat="server" Text="Buscar" class="btn btn-primary btn-sm" ValidationGroup="Buscar" />
+                    <asp:Button ID="BuscarButton" runat="server" Text="Buscar" class="btn btn-primary btn-sm" ValidationGroup="Buscar" OnClick="BuscarButton_Click" />
                 </div>
             </div>
 
@@ -37,7 +37,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" for="CantidadTextBox">Cantidad:</label>
                 <div class="col-sm-1 col-md-5">
-                    <asp:TextBox type="Number" class="form-control" ID="CantidadTextBox" Text="0" runat="server"></asp:TextBox>
+                    <asp:TextBox type="Number" class="form-control" ID="CantidadTextBox" placeholder="0" runat="server"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="CantidadTextBoxRequiredFieldValidator" runat="server" ErrorMessage="Ingrese solo Numero!" ValidationGroup="guardar" ControlToValidate="CantidadTextBox" Display="Dynamic" Font-Bold="True" ForeColor="Red">*</asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="CantidadTextBoxRegularExpressionValidator" runat="server" ErrorMessage="Ingrese solo Numero!" ControlToValidate="CantidadTextBox" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>              
                 </div>
@@ -46,9 +46,9 @@
             <div class="panel">
                 <div class="text-center">
                     <div class="form-group">
-                        <asp:Button ID="BtnNuevo" runat="server" Text="Nuevo" class="btn btn-warning btn-sm" />
-                        <asp:Button ID="BtnGuardar" runat="server" Text="Guardar" class="btn btn-success btn-sm" ValidationGroup="guardar" />
-                        <asp:Button ID="BtnEliminar" runat="server" Text="Eliminar" class="btn btn-danger btn-sm" ValidationGroup="Buscar" />
+                        <asp:Button ID="BtnNuevo" runat="server" Text="Nuevo" class="btn btn-warning btn-sm" OnClick="BtnNuevo_Click" />
+                        <asp:Button ID="BtnGuardar" runat="server" Text="Guardar" class="btn btn-success btn-sm" ValidationGroup="guardar" OnClick="BtnGuardar_Click" />
+                        <asp:Button ID="BtnEliminar" runat="server" Text="Eliminar" class="btn btn-danger btn-sm" ValidationGroup="Buscar" OnClick="BtnEliminar_Click" />
                     </div>
                 </div>
             </div>

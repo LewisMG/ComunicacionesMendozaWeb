@@ -20,7 +20,7 @@ namespace DLN
 
         public static decimal CalcularGanancia(decimal precioventa, decimal preciocompra)
         {
-            return precioventa - preciocompra;
+            return preciocompra - precioventa;
         }
 
         public static List<EntradaProductos> FiltrarEntradaProductos(int index, string criterio, DateTime desde, DateTime hasta)
