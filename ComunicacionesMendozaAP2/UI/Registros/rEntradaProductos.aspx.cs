@@ -16,7 +16,6 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             if (!Page.IsPostBack)
             {
                 LlenarDropDownList();
-                FechaTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 EProductoIdTextBox.Text = "0";
             }
         }
@@ -24,7 +23,6 @@ namespace ComunicacionesMendozaAP2.UI.Registros
         private void LimpiarCampos()
         {
             EProductoIdTextBox.Text = "";
-            FechaTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
             ProductoDropDownList.SelectedIndex = 0;
             CantidadTextBox.Text = "";
         }
@@ -33,7 +31,7 @@ namespace ComunicacionesMendozaAP2.UI.Registros
         {
             LimpiarCampos();
             EProductoIdTextBox.Text = eProducto.EntradapId.ToString();
-            FechaTextBox.Text = eProducto.Fecha.ToString("dd-MM-yyyy");
+            FechaTextBox.Text = eProducto.Fecha.ToString("yyyy-MM-dd");
             ProductoDropDownList.Text = Convert.ToString(eProducto.ProductoId);
             CantidadTextBox.Text = eProducto.Cantidad.ToString();
         }
@@ -53,7 +51,9 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             EntradaProductos eProducto = new EntradaProductos();
 
             eProducto.EntradapId = Utils.ToInt(EProductoIdTextBox.Text);
-            eProducto.Fecha = Utils.ToDateTime(FechaTextBox.Text);
+            bool result = DateTime.TryParse(FechaTextBox.Text, out DateTime fecha);
+            if (result)
+                eProducto.Fecha = fecha;
             eProducto.ProductoId = Utils.ToInt(ProductoDropDownList.Text);
             eProducto.Cantidad = Utils.ToInt(CantidadTextBox.Text);
 

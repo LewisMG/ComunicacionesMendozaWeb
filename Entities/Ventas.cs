@@ -21,7 +21,7 @@ namespace Entities
         public decimal Itbis { get; set; }
         public decimal Total { get; set; }
 
-        public virtual ICollection<VentasDetalle> Detalle { get; set; }
+        public virtual List<VentasDetalle> Detalle { get; set; }
 
         public Ventas()
         {
@@ -30,7 +30,7 @@ namespace Entities
             Fecha = DateTime.Now;
         }
 
-        public void AgregarDetalle(int VDetalleId, int VentaId, int productoId, string producto, int Cantidad, int Precio, int Importe)
+        public void AgregarDetalle(int VDetalleId, int VentaId, int productoId, string producto, int Cantidad, decimal Precio, decimal Importe)
         {
             this.Detalle.Add(new VentasDetalle(VDetalleId, VentaId, productoId, producto, Cantidad, Precio, Importe));
         }

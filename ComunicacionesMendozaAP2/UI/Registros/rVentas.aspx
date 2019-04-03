@@ -68,36 +68,34 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <div class="form-group col-md-2">
                     <asp:Label ID="Label1" runat="server" Text="Cantidad:"></asp:Label>
-                    <asp:TextBox class="form-control" type="Number" ID="CantidadTextBox" AutoPostback="true" placeholder="0" runat="server" Width="150px" OnTextChanged="CantidadTextBox_TextChanged"></asp:TextBox>
+                    <asp:TextBox class="form-control" type="Number" ID="CantidadTextBox" AutoPostBack="true" placeholder="0" runat="server" Width="150px" OnTextChanged="CantidadTextBox_TextChanged"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Ingrese solo numero!" ControlToValidate="CantidadTextBox" ValidationGroup="guardar" Display="Dynamic" Font-Bold="True" ForeColor="Red">*</asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ErrorMessage="Ingrese solo numeros!" ControlToValidate="CantidadTextBox" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>
                 </div>
                 <div class="form-group col-md-2">
                     <asp:Label ID="Label2" runat="server" Text="Precio:"></asp:Label>
-                    <asp:TextBox class="form-control" type="Number" ID="PrecioTextBox" AutoPostback="true" placeholder="0" runat="server" ReadOnly="true" Width="150px"></asp:TextBox>
+                    <asp:TextBox class="form-control" type="Number" ID="PrecioTextBox" AutoPostBack="true" placeholder="0" runat="server" ReadOnly="true" Width="150px"></asp:TextBox>
                 </div>
                 <div class="form-group col-md-1">
                     <asp:Label ID="Label8" runat="server" Text="Importe:"></asp:Label>
-                    <asp:TextBox class="form-control" type="Number" ID="ImporteTextBox" AutoPostback="true" placeholder="0" runat="server" ReadOnly="true" Width="150px"></asp:TextBox>
+                    <asp:TextBox class="form-control" type="Number" ID="ImporteTextBox" AutoPostBack="true" placeholder="0" runat="server" ReadOnly="true" Width="150px"></asp:TextBox>
                 </div>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <div class="col-lg-0 p-4">
                     <asp:Button ID="ButtonAgregar" runat="server" Text="Agregar" class="btn btn-info" OnClick="ButtonAgregar_Click" />
-                    <asp:Button ID="ButtonRemover" runat="server" Text="Remover" class="btn btn-danger" OnClick="ButtonRemover_Click" />
                 </div>
             </div>
             <hr>
             <div class="col row">
-                <asp:GridView ID="VentasGridView" runat="server" class="table table-condensed table-bordered table-responsive" AutoGenerateColumns="False" CellPadding="4" ForeColor="#0066FF" GridLines="None">
+                <asp:GridView ID="VentasGridView" runat="server" class="table table-condensed table-bordered table-responsive" CellPadding="4" ForeColor="#0066FF" GridLines="None" OnPageIndexChanging="VentasGridView_PageIndexChanging" OnRowCommand="VentasGridView_RowCommand" OnSelectedIndexChanged="VentasGridView_SelectedIndexChanged">
                     <AlternatingRowStyle BackColor="#999999" />
                     <Columns>
-                        <asp:BoundField DataField="VDetalleId" HeaderText="VDetalleId" />
-                        <asp:BoundField DataField="VentaId" HeaderText="VentaId" />
-                        <asp:BoundField DataField="ProductoId" HeaderText="ProductoId" />
-                        <asp:BoundField DataField="Producto" HeaderText="Producto" />
-                        <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" />
-                        <asp:BoundField DataField="Precio" HeaderText="Precio" />
-                        <asp:BoundField DataField="Importe" HeaderText="Importe" />
+                        <asp:TemplateField ShowHeader="False" HeaderText="Opciones">
+                            <ItemTemplate>
+                                <asp:Button ID="Remover" runat="server" CausesValidation="false" CommandName="Select" CommandArgument="<%# ((GridViewRow) Container).DataItemIndex %>"
+                                    Text="Remover" class="btn btn-danger btn-sm"/>
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     </Columns>
                     <EditRowStyle BackColor="#2461BF" />
                     <FooterStyle BackColor="#005a65" Font-Bold="True" ForeColor="White" />

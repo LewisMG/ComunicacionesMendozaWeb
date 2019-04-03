@@ -132,6 +132,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ComunicacionesMendozaAPIIWEBDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ComunicacionesMendozaDbDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ComunicacionesMendozaDbDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -244,6 +249,17 @@
     <Content Include="ComunicacionesMendozaAPIIWEBDataSet.xss">
       <DependentUpon>ComunicacionesMendozaAPIIWEBDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="ComunicacionesMendozaDbDataSet.xsc">
+      <DependentUpon>ComunicacionesMendozaDbDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="ComunicacionesMendozaDbDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ComunicacionesMendozaDbDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ComunicacionesMendozaDbDataSet.xss">
+      <DependentUpon>ComunicacionesMendozaDbDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="EntradaProductoDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>EntradaProductoDataSet.Designer.cs</LastGenOutput>
@@ -315,10 +331,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\Reportes\ListadoDeEntradaProductoss.rdlc" />
-    <EmbeddedResource Include="UI\Reportes\ListadoDeProductos.rdlc" />
-    <EmbeddedResource Include="UI\Reportes\ListadoDeUsuario.rdlc" />
-    <EmbeddedResource Include="UI\Reportes\ListadoDeVentas.rdlc" />
+    <Content Include="UI\Reportes\ListadoDeEntradaProductoss.rdlc" />
+    <Content Include="UI\Reportes\ListadoDeProductos.rdlc" />
+    <Content Include="UI\Reportes\ListadoDeUsuario.rdlc" />
+    <Content Include="UI\Reportes\ListadoDeVentas.rdlc" />
+    <EmbeddedResource Include="UI\Reportes\ReciboDeVenta.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

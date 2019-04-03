@@ -3,6 +3,7 @@ using Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
@@ -44,7 +45,9 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             Productos p = new Productos();
 
             p.ProductoId = Utils.ToInt(ProductoIdTextBox.Text);
-            p.Fecha = Convert.ToDateTime(FechaTextBox.Text).Date;
+            bool result = DateTime.TryParse(FechaTextBox.Text, out DateTime fecha);
+            if (result)
+                p.Fecha = fecha;
             p.Descripcion = DescripcionTextBox.Text;
             p.Costo = Utils.ToInt(CostoTextBox.Text);
             p.Precio = Utils.ToInt(PrecioTextBox.Text);
@@ -68,6 +71,22 @@ namespace ComunicacionesMendozaAP2.UI.Registros
                 GananciaTextBox.Text = Metodos.CalcularGanancia(costo, precio).ToString();
         }
 
+        protected bool ValidarProductos(Productos productos)
+        {
+            bool validar = false;
+            Expression<Func<Productos, bool>> filtro = p => true;
+            RepositorioBase<Productos> repositorio = new RepositorioBase<Productos>();
+            var lista = repositorio.GetList(c => true);
+            foreach (var item in lista)
+            {
+                if (productos.Descripcion == item.Descripcion)
+                {
+                    Utils.ShowToastr(this.Page, "Este Producto ya Existe", "Error", "error");
+                    return validar = true;
+                }
+            }
+            return validar;
+        }
 
         protected void BtnBuscar_Click(object sender, EventArgs e)
         {
@@ -104,34 +123,41 @@ namespace ComunicacionesMendozaAP2.UI.Registros
 
             p = LlenaClase();
 
-            if (p.ProductoId == 0)
+            if (ValidarProductos(p))
             {
-                paso = repositorio.Guardar(p);
-                Utils.ShowToastr(this, "Guardado Exitosamente!!", "Exito", "success");
-                LimpiarCampos();
+                return;
             }
             else
             {
-                Productos user = new Productos();
-                int id = Utils.ToInt(ProductoIdTextBox.Text);
-                RepositorioBase<Productos> repository = new RepositorioBase<Productos>();
-                p = repository.Buscar(id);
-
-                if (user != null)
+                if (p.ProductoId == 0)
                 {
-                    paso = repositorio.Modificar(LlenaClase());
-                    Utils.ShowToastr(this, "Modificado Exitosamente!!", "Exito", "success");
+                    paso = repositorio.Guardar(p);
+                    Utils.ShowToastr(this, "Guardado Exitosamente!!", "Exito", "success");
+                    LimpiarCampos();
                 }
                 else
-                    Utils.ShowToastr(this, "No Encontrado!!", "Error", "error");
-            }
+                {
+                    Productos user = new Productos();
+                    int id = Utils.ToInt(ProductoIdTextBox.Text);
+                    RepositorioBase<Productos> repository = new RepositorioBase<Productos>();
+                    p = repository.Buscar(id);
 
-            if (paso)
-            {
-                LimpiarCampos();
+                    if (user != null)
+                    {
+                        paso = repositorio.Modificar(LlenaClase());
+                        Utils.ShowToastr(this, "Modificado Exitosamente!!", "Exito", "success");
+                    }
+                    else
+                        Utils.ShowToastr(this, "No Encontrado!!", "Error", "error");
+                }
+
+                if (paso)
+                {
+                    LimpiarCampos();
+                }
+                else
+                    Utils.ShowToastr(this, "Fallo!! no ha podido Guardar", "Error", "error");
             }
-            else
-                Utils.ShowToastr(this, "Fallo!! no ha podido Guardar", "Error", "error");
         }
 
         protected void BtnEliminar_Click(object sender, EventArgs e)

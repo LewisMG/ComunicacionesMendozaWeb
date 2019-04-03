@@ -23,7 +23,7 @@ namespace Entities
 
         public Usuarios()
         {
-
+            Fecha = DateTime.Now;
         }
     }
 }

@@ -55,8 +55,8 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             VentaIdTextBox.Text = "0";
             FechaTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
             DescripcionTextBox.Text = "";
-            UsuarioDropDownList.SelectedIndex = 1;
-            ProductoDropDownList.SelectedIndex = 1;
+            UsuarioDropDownList.SelectedIndex = 0;
+            ProductoDropDownList.SelectedIndex = 0;
             NClienteTextBox.Text = "";
             TClienteTextBox.Text = "";
             CantidadTextBox.Text = 0.ToString();
@@ -83,7 +83,7 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             ventas.SubTotal = Utils.ToInt(SubTotalLabel.Text);
             ventas.Itbis = Utils.ToInt(ItbisLabel.Text);
             ventas.Total = Utils.ToInt(TotalLabel.Text);
-            ventas.Detalle = ListaDetalle;
+            ventas.Detalle = (List<VentasDetalle>)ViewState["VentasDetalle"];
 
             return ventas;
         }
@@ -98,11 +98,8 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             SubTotalLabel.Text = ventas.SubTotal.ToString();
             ItbisLabel.Text = ventas.Itbis.ToString();
             TotalLabel.Text = ventas.Total.ToString();
-            Expression<Func<VentasDetalle, bool>> filtro = x => true;
-            RepositorioBase<VentasDetalle> repositorioBase = new RepositorioBase<VentasDetalle>();
-            int id = ventas.VentaId;
-            filtro = c => c.VentaId == id;
-            VentasGridView.DataSource = repositorioBase.GetList(filtro);
+            ViewState["VentasDetalle"] = ventas.Detalle;
+            VentasGridView.DataSource = ViewState["VentasDetalle"];
             VentasGridView.DataBind();
         }
 
@@ -176,7 +173,7 @@ namespace ComunicacionesMendozaAP2.UI.Registros
                     }
                     VentasDetalle vd = new VentasDetalle();
                     venta.Detalle.Add(new VentasDetalle(0, vd.VentaId, productoId, descripcion, cantidad, precio, importe));
-                    
+
                     int x = Convert.ToInt32(CantidadTextBox.Text);
                     productos.Inventario -= x;
                     if (ToInt(CantidadTextBox.Text) == 0)
@@ -191,41 +188,6 @@ namespace ComunicacionesMendozaAP2.UI.Registros
                 }
             }
 
-        }
-
-        public void Ajustar()
-        {
-            RepositorioBase<Productos> repositorio = new RepositorioBase<Productos>();
-            Productos productos = new Productos();
-
-            int cantidad = 0;
-            int id = Utils.ToInt(ProductoDropDownList.SelectedValue);
-            cantidad = Utils.ToInt(CantidadTextBox.Text);
-            productos = repositorio.Buscar(id);
-            productos.Inventario -= cantidad;
-
-            repositorio.Modificar(productos);
-        }
-
-        public void Desajustar()
-        {
-            int id = Utils.ToInt(ProductoDropDownList.SelectedValue);
-            RepositorioBase<Productos> repositorio = new RepositorioBase<Productos>();
-            RepositorioVentas repositorioDos = new RepositorioVentas();
-            List<Ventas> list = new List<Ventas>();
-            Ventas ventas = new Ventas();
-            list = repositorioDos.GetList(c=> c.VentaId == id);
-            
-            Productos productos = new Productos();
-
-            string Desc = string.Empty;
-
-            int cantidad = 0;
-            cantidad = Utils.ToInt(CantidadTextBox.Text);
-            productos = repositorio.Buscar(id);
-            productos.Inventario += cantidad;
-
-            repositorio.Modificar(productos);
         }
 
         protected void ButtonRemover_Click(object sender, EventArgs e)
@@ -258,7 +220,6 @@ namespace ComunicacionesMendozaAP2.UI.Registros
 
                     if (ventas.VentaId == 0 && Utils.ToInt(TotalLabel.Text) != 0)
                     {
-                        Ajustar();
                         paso = repositorio.Guardar(ventas);
                     }
                     else if (Utils.ToInt(TotalLabel.Text) == 0)
@@ -348,18 +309,37 @@ namespace ComunicacionesMendozaAP2.UI.Registros
         private void LlenaValores()
         {
             RepositorioVentas repositorio = new RepositorioVentas();
-            int total = 0;
+            decimal total = 0;
             List<VentasDetalle> lista = (List<VentasDetalle>)ViewState["VentasDetalle"];
             foreach (var item in lista)
             {
                 total += item.Importe;
             }
-            double Itbis = 0;
-            double SubTotal = 0;
+            decimal Itbis = 0;
+            decimal SubTotal = 0;
 
-            Itbis = total * 0.18f;
+            Itbis = total * 18 / 100;
             SubTotal = total - Itbis;
             SubTotalLabel.Text = SubTotal.ToString();
+            ItbisLabel.Text = Itbis.ToString();
+            TotalLabel.Text = total.ToString();
+        }
+
+        private void VaciaValores()
+        {
+            decimal total = Utils.ToDecimal(TotalLabel.Text);
+            decimal total2 = 0;
+            decimal Itbis = 0;
+            decimal Subtotal = 0;
+            List<VentasDetalle> lista = (List<VentasDetalle>)ViewState["VentasDetalle"];
+            foreach (var item in lista)
+            {
+                total2 = item.Importe;
+            }
+            total = total - total2;
+            Itbis = total * 18 / 100;
+            Subtotal = total - Itbis;
+            SubTotalLabel.Text = Subtotal.ToString();  
             ItbisLabel.Text = Itbis.ToString();
             TotalLabel.Text = total.ToString();
         }
@@ -375,6 +355,35 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             SubTotalLabel.Text = SubTotal.ToString();
             ItbisLabel.Text = Itbis.ToString();
             TotalLabel.Text = Total.ToString();
+        }
+
+        protected void VentasGridView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            VentasGridView.DataSource = ViewState["VentasDetalle"];
+            VentasGridView.PageIndex = e.NewPageIndex;
+            VentasGridView.DataBind();
+        }
+
+        protected void VentasGridView_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Select")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                Expression<Func<Productos, bool>> filtro = p => true;
+                RepositorioBase<Productos> repositorio = new RepositorioBase<Productos>();
+                var lista = repositorio.GetList(c => true);
+                var combos = repositorio.Buscar(lista[index].ProductoId);
+
+                VaciaValores();
+                ((List<VentasDetalle>)ViewState["VentasDetalle"]).RemoveAt(index);
+                VentasGridView.DataSource = ViewState["VentasDetalle"];
+                VentasGridView.DataBind();
+            }
+        }
+
+        protected void VentasGridView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

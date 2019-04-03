@@ -207,55 +207,55 @@ namespace DLN
             return list;
         }
 
-        public static List<VentasDetalle> FiltrarVentasDetalle(int index, string criterio, DateTime desde, DateTime hasta)
-        {
-            Expression<Func<VentasDetalle, bool>> filtro = p => true;
-            RepositorioBase<VentasDetalle> repositorio = new RepositorioBase<VentasDetalle>();
-            List<VentasDetalle> list = new List<VentasDetalle>();
+        //public static List<VentasDetalle> FiltrarVentasDetalle(int index, string criterio, DateTime desde, DateTime hasta)
+        //{
+        //    Expression<Func<VentasDetalle, bool>> filtro = p => true;
+        //    RepositorioBase<VentasDetalle> repositorio = new RepositorioBase<VentasDetalle>();
+        //    List<VentasDetalle> list = new List<VentasDetalle>();
 
-            int id = ToInt(criterio);
-            switch (index)
-            {
-                case 0://Todo
-                    break;
+        //    int id = ToInt(criterio);
+        //    switch (index)
+        //    {
+        //        case 0://Todo
+        //            break;
 
-                case 1://Todo por fecha
-                    filtro = p => p.Fecha >= desde && p.Fecha <= hasta;
-                    break;
+        //        case 1://Todo por fecha
+        //            filtro = p => p.Fecha >= desde && p.Fecha <= hasta;
+        //            break;
 
-                case 2://VDetalleId
-                    filtro = p => p.VDetalleId == id && p.Fecha >= desde && p.Fecha <= hasta;
-                    break;
+        //        case 2://VDetalleId
+        //            filtro = p => p.VDetalleId == id && p.Fecha >= desde && p.Fecha <= hasta;
+        //            break;
 
-                case 3://VentaId
-                    filtro = p => p.VentaId == id && p.Fecha >= desde && p.Fecha <= hasta;
-                    break;
+        //        case 3://VentaId
+        //            filtro = p => p.VentaId == id && p.Fecha >= desde && p.Fecha <= hasta;
+        //            break;
 
-                case 4://ProductoId
-                    filtro = p => p.ProductoId == id && p.Fecha >= desde && p.Fecha <= hasta;
-                    break;
+        //        case 4://ProductoId
+        //            filtro = p => p.ProductoId == id && p.Fecha >= desde && p.Fecha <= hasta;
+        //            break;
 
-                case 5://Producto
-                    filtro = p => p.Producto.Contains(criterio) && p.Fecha >= desde && p.Fecha <= hasta;
-                    break;
+        //        case 5://Producto
+        //            filtro = p => p.Producto.Contains(criterio) && p.Fecha >= desde && p.Fecha <= hasta;
+        //            break;
 
-                case 6://Cantidad
-                    filtro = p => p.Cantidad == id && p.Fecha >= desde && p.Fecha <= hasta;
-                    break;
+        //        case 6://Cantidad
+        //            filtro = p => p.Cantidad == id && p.Fecha >= desde && p.Fecha <= hasta;
+        //            break;
 
-                case 7://Precio
-                    filtro = p => p.Precio == id && p.Fecha >= desde && p.Fecha <= hasta;
-                    break;
+        //        case 7://Precio
+        //            filtro = p => p.Precio == id && p.Fecha >= desde && p.Fecha <= hasta;
+        //            break;
 
-                case 8://Importe
-                    filtro = p => p.Importe == id && p.Fecha >= desde && p.Fecha <= hasta;
-                    break;
-            }
+        //        case 8://Importe
+        //            filtro = p => p.Importe == id && p.Fecha >= desde && p.Fecha <= hasta;
+        //            break;
+        //    }
 
-            list = repositorio.GetList(filtro);
+        //    list = repositorio.GetList(filtro);
 
-            return list;
-        }
+        //    return list;
+        //}
     }
 }
 

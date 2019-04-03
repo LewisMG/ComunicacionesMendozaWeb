@@ -21,7 +21,7 @@ namespace Entities
 
         public Productos()
         {
-
+            Fecha = DateTime.Now;
         }
 
         public override string ToString()

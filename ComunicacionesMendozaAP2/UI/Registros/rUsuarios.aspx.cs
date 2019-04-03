@@ -3,6 +3,7 @@ using Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
@@ -14,7 +15,7 @@ namespace ComunicacionesMendozaAP2.UI.Registros
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            FechaTextBox.Text = DateTime.Now.ToString("dd-MM-yyyy");
+            FechaTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
         }
 
         private void LimpiarCampos()
@@ -34,7 +35,7 @@ namespace ComunicacionesMendozaAP2.UI.Registros
         private void LlenaCampos(Usuarios usuarios)
         {
             UsuarioIdTextBox.Text = usuarios.UsuarioId.ToString();
-            FechaTextBox.Text = usuarios.Fecha.ToString();
+            FechaTextBox.Text = usuarios.Fecha.ToString("yyyy-MM-dd");
             NombreTextBox.Text = usuarios.Nombres;
             NombreUserTextBox.Text = usuarios.NombreUser.ToString();
             CedulaTextBox.Text = usuarios.Cedula.ToString();
@@ -50,7 +51,10 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             Usuarios u = new Usuarios();
 
             u.UsuarioId = Utils.ToInt(UsuarioIdTextBox.Text);
-            u.Fecha = Convert.ToDateTime(FechaTextBox.Text).Date;
+            bool result = DateTime.TryParse(FechaTextBox.Text, out DateTime fecha);
+            if (result)
+                u.Fecha = fecha;
+            u.Fecha = DateTime.Now;
             u.Nombres = NombreTextBox.Text;
             u.NombreUser = NombreUserTextBox.Text;
             u.Cedula = CedulaTextBox.Text;
@@ -60,6 +64,35 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             u.TotalVendido = Utils.ToDecimal(TotalVendidoTextBox.Text);
 
             return u;
+        }
+
+        protected bool ValidarNombres(Usuarios usuarios)
+        {
+            bool validar = false;
+            Expression<Func<Usuarios, bool>> filtro = p => true;
+            RepositorioBase<Usuarios> repositorio = new RepositorioBase<Usuarios>();
+            var lista = repositorio.GetList(c => true);
+            foreach (var item in lista)
+            {
+                if (usuarios.NombreUser == item.NombreUser)
+                {
+                    Utils.ShowToastr(this.Page, "Usuario ya Existe", "Error", "error");
+                    return validar = true;
+                }
+
+                if (usuarios.Cedula == item.Cedula)
+                {
+                    Utils.ShowToastr(this.Page, "Cedula ya Existe", "Error", "error");
+                    return validar = true;
+                }
+
+                if (usuarios.Telefono == item.Telefono)
+                {
+                    Utils.ShowToastr(this.Page, "Telefono ya Existe", "Error", "error");
+                    return validar = true;
+                }                
+            }
+            return validar;
         }
 
         protected void BtnBuscar_Click(object sender, EventArgs e)
@@ -101,40 +134,46 @@ namespace ComunicacionesMendozaAP2.UI.Registros
                 return;
             }
             u = LlenaClase();
-
-            if (ContraseñaTextBox.Text == VContraseñaTextBox.Text)
+            if (ValidarNombres(u))
             {
-                if (u.UsuarioId == 0)
-                {
-                    paso = repositorio.Guardar(u);
-                    Utils.ShowToastr(this, "Guardado Exitosamente!!", "Exito", "success");
-                    LimpiarCampos();
-                }
-                else
-                {
-                    Usuarios user = new Usuarios();
-                    int id = Utils.ToInt(UsuarioIdTextBox.Text);
-                    RepositorioBase<Usuarios> repository = new RepositorioBase<Usuarios>();
-                    u = repository.Buscar(id);
-
-                    if (user != null)
-                    {
-                        paso = repositorio.Modificar(LlenaClase());
-                        Utils.ShowToastr(this, "Modificado Exitosamente!!", "Exito", "success");
-                    }
-                    else
-                        Utils.ShowToastr(this, "No Encontrado!!", "Error", "error");
-                }
-
-                if (paso)
-                {
-                    LimpiarCampos();
-                }
-                else
-                    Utils.ShowToastr(this, "Fallo!! no ha podido Guardar", "Error", "error");
+                return;
             }
             else
-                Utils.ShowToastr(this, "Fallo!! Contraseña no coinciden", "Error", "error");
+            {
+                if (ContraseñaTextBox.Text == VContraseñaTextBox.Text)
+                {
+                    if (u.UsuarioId == 0)
+                    {
+                        paso = repositorio.Guardar(u);
+                        Utils.ShowToastr(this, "Guardado Exitosamente!!", "Exito", "success");
+                        LimpiarCampos();
+                    }
+                    else
+                    {
+                        Usuarios user = new Usuarios();
+                        int id = Utils.ToInt(UsuarioIdTextBox.Text);
+                        RepositorioBase<Usuarios> repository = new RepositorioBase<Usuarios>();
+                        u = repository.Buscar(id);
+
+                        if (user != null)
+                        {
+                            paso = repositorio.Modificar(LlenaClase());
+                            Utils.ShowToastr(this, "Modificado Exitosamente!!", "Exito", "success");
+                        }
+                        else
+                            Utils.ShowToastr(this, "No Encontrado!!", "Error", "error");
+                    }
+
+                    if (paso)
+                    {
+                        LimpiarCampos();
+                    }
+                    else
+                        Utils.ShowToastr(this, "Fallo!! no ha podido Guardar", "Error", "error");
+                }
+                else
+                    Utils.ShowToastr(this, "Fallo!! Contraseña no coinciden", "Error", "error");
+            }
         }
 
         protected void BtnEliminar_Click(object sender, EventArgs e)
