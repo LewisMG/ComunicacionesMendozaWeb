@@ -45,6 +45,7 @@ namespace ComunicacionesMendozaAP2.UI.Consultas
             CBGridView.DataBind();
 
             CriterioTextBox.Text = FiltroDropDownList.Text.ToString();
+            list = repositorio.GetList(filtro);
         }
 
         public void LlenaReport()

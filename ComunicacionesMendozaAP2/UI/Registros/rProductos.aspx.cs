@@ -142,7 +142,7 @@ namespace ComunicacionesMendozaAP2.UI.Registros
                     RepositorioBase<Productos> repository = new RepositorioBase<Productos>();
                     p = repository.Buscar(id);
 
-                    if (user != null)
+                    if (p != null)
                     {
                         paso = repositorio.Modificar(LlenaClase());
                         Utils.ShowToastr(this, "Modificado Exitosamente!!", "Exito", "success");

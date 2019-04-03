@@ -59,7 +59,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" for="TelefonoTextBox">Telefono:</label>
                 <div class="col-sm-1 col-md-5">
-                    <asp:TextBox type="text" class="form-control" ID="TelefonoTextBox" placeholder="Ingrese Telefono" runat="server"></asp:TextBox>
+                    <asp:TextBox type="text" class="form-control" ID="TelefonoTextBox" placeholder="Ingrese Telefono" MaxLength="10" runat="server"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="TelefonoTextBoxRequiredFieldValidator" runat="server" ErrorMessage="Ingrese algun nombre!" ValidationGroup="guardar" ControlToValidate="TelefonoTextBox" Display="Dynamic" Font-Bold="True" ForeColor="Red" SetFocusOnError="True" ToolTip="Campo Descripcion obligatorio&quot;&gt;Por favor llenar el campo Nombre">*</asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="TelefonoTextBoxRegularExpressionValidator" runat="server" ErrorMessage="Ingrese algun nombre!" ControlToValidate="TelefonoTextBox" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>
                 </div>
@@ -77,7 +77,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" for="ContraseñaTextBox">Contraseña:</label>
                 <div class="col-sm-1 col-md-5">
-                    <asp:TextBox type="text" class="form-control" ID="ContraseñaTextBox" placeholder="Ingrese Contraseña" runat="server"></asp:TextBox>
+                    <asp:TextBox type="password" class="form-control" ID="ContraseñaTextBox" placeholder="Ingrese Contraseña" runat="server"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Ingrese Contraseña!" ValidationGroup="guardar" ControlToValidate="ContraseñaTextBox" Display="Dynamic" Font-Bold="True" ForeColor="Red" SetFocusOnError="True" ToolTip="Campo Contraseña obligatorio&quot;&gt;Por favor llenar el campo Contraseña">*</asp:RequiredFieldValidator>
                 </div>
             </div>
@@ -86,7 +86,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-2" for="VContraseñaTextBox">Confirme Contraseña:</label>
                 <div class="col-sm-1 col-md-5">
-                    <asp:TextBox type="text" class="form-control" ID="VContraseñaTextBox" placeholder="Verifique Contraseña" runat="server"></asp:TextBox>
+                    <asp:TextBox type="password" class="form-control" ID="VContraseñaTextBox" placeholder="Verifique Contraseña" runat="server"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Ingrese Verifique Contraseña!" ValidationGroup="guardar" ControlToValidate="VContraseñaTextBox" Display="Dynamic" Font-Bold="True" ForeColor="Red" SetFocusOnError="True" ToolTip="Campo Verificar Contraseña obligatorio&quot;&gt;Por favor llenar el campo Verificar Contraseña">*</asp:RequiredFieldValidator>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <script type="text/javascript"> function VerificarCantidad(sender, args) {args.IsValid = (args.Value.length < 11);}</script>
+            <script type="text/javascript"> function VerificarCantidad(sender, args) {args.IsValid = (args.Value.length <= 11);}</script>
             <hr>
         </div>
     </div>

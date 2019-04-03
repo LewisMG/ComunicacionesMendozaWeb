@@ -99,9 +99,11 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Imagen\usuario.png" />
     <Content Include="jquery\jquery-1.10.2.js" />
     <Content Include="jquery\jquery-ui-1.10.4.custom.js" />
     <Content Include="jquery\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="Login.aspx" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -151,6 +153,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Principal.Master.cs">
       <DependentUpon>Principal.Master</DependentUpon>
@@ -233,6 +242,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VentasDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="VentasRDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VentasRDataSet.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="EntradaProductoDataSet.xsc">
@@ -268,6 +282,7 @@
     <Content Include="EntradaProductoDataSet.xss">
       <DependentUpon>EntradaProductoDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="libman.json" />
     <None Include="packages.config" />
     <Content Include="Principal.Master" />
     <Content Include="ProductosDataSet.xsc">
@@ -305,6 +320,17 @@
     <Content Include="VentasDataSet.xss">
       <DependentUpon>VentasDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="VentasRDataSet.xsc">
+      <DependentUpon>VentasRDataSet.xsd</DependentUpon>
+    </Content>
+    <None Include="VentasRDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VentasRDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="VentasRDataSet.xss">
+      <DependentUpon>VentasRDataSet.xsd</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -335,7 +361,9 @@
     <Content Include="UI\Reportes\ListadoDeProductos.rdlc" />
     <Content Include="UI\Reportes\ListadoDeUsuario.rdlc" />
     <Content Include="UI\Reportes\ListadoDeVentas.rdlc" />
-    <EmbeddedResource Include="UI\Reportes\ReciboDeVenta.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\Reportes\ReciboVenta.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

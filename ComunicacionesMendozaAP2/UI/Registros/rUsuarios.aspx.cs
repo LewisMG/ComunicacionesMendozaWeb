@@ -64,7 +64,7 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             u.TotalVendido = Utils.ToDecimal(TotalVendidoTextBox.Text);
 
             return u;
-        }
+        }        
 
         protected bool ValidarNombres(Usuarios usuarios)
         {
@@ -90,8 +90,33 @@ namespace ComunicacionesMendozaAP2.UI.Registros
                 {
                     Utils.ShowToastr(this.Page, "Telefono ya Existe", "Error", "error");
                     return validar = true;
-                }                
+                } 
+                
+                if (usuarios.Correo == item.Correo)
+                {
+                    Utils.ShowToastr(this.Page, "Correo ya Existe", "Error", "error");
+                    return validar = true;
+                }
             }
+
+            if (TelefonoTextBox.Text.Length != 10)
+            {
+                Utils.ShowToastr(this, "Ingrese Correctamente el telefono", "Error", "error");
+                validar = true;
+            }
+
+            if (CedulaTextBox.Text.Length != 11)
+            {
+                Utils.ShowToastr(this, "Ingrese Correctamente la Cedula", "Error", "error");
+                validar = true;
+            }
+
+            if (String.IsNullOrWhiteSpace(UsuarioIdTextBox.Text))
+            {
+                Utils.ShowToastr(this, "Debe tener un Id para guardar", "Error", "error");
+                validar = true;
+            }
+
             return validar;
         }
 
@@ -155,7 +180,7 @@ namespace ComunicacionesMendozaAP2.UI.Registros
                         RepositorioBase<Usuarios> repository = new RepositorioBase<Usuarios>();
                         u = repository.Buscar(id);
 
-                        if (user != null)
+                        if (u != null)
                         {
                             paso = repositorio.Modificar(LlenaClase());
                             Utils.ShowToastr(this, "Modificado Exitosamente!!", "Exito", "success");

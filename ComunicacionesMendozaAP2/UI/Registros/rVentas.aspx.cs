@@ -50,6 +50,25 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             ViewState["Ventas"] = new Ventas();
         }
 
+        protected bool Validar(Usuarios usuarios)
+        {
+            bool validar = false;
+
+            if (TClienteTextBox.Text.Length != 10)
+            {
+                Utils.ShowToastr(this, "Ingrese Correctamente el telefono", "Error", "error");
+                validar = true;
+            }
+
+            if (String.IsNullOrWhiteSpace(VentaIdTextBox.Text))
+            {
+                Utils.ShowToastr(this, "Debe tener un Id para guardar", "Error", "error");
+                validar = true;
+            }
+
+            return validar;
+        }
+
         public void LimpiarCampos()
         {
             VentaIdTextBox.Text = "0";
@@ -211,7 +230,6 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             Ventas ventas = LlenaClase();
 
             bool paso = false;
-
             if (UsuarioDropDownList != null)
             {
 
@@ -221,10 +239,6 @@ namespace ComunicacionesMendozaAP2.UI.Registros
                     if (ventas.VentaId == 0 && Utils.ToInt(TotalLabel.Text) != 0)
                     {
                         paso = repositorio.Guardar(ventas);
-                    }
-                    else if (Utils.ToInt(TotalLabel.Text) == 0)
-                    {
-                        Utils.ShowToastr(this, "Debe Agregar un producto ", "Fallo", "error");
                     }
                     else if (Utils.ToInt(VentaIdTextBox.Text) != 0)
                     {
@@ -339,7 +353,7 @@ namespace ComunicacionesMendozaAP2.UI.Registros
             total = total - total2;
             Itbis = total * 18 / 100;
             Subtotal = total - Itbis;
-            SubTotalLabel.Text = Subtotal.ToString();  
+            SubTotalLabel.Text = Subtotal.ToString();
             ItbisLabel.Text = Itbis.ToString();
             TotalLabel.Text = total.ToString();
         }

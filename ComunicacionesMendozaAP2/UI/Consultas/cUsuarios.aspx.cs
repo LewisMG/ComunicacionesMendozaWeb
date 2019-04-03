@@ -1,4 +1,5 @@
-﻿using DLN;
+﻿using ComunicacionesMendozaAP2.UI.Registros;
+using DLN;
 using Entities;
 using Microsoft.Reporting.WebForms;
 using System;
@@ -15,7 +16,7 @@ namespace ComunicacionesMendozaAP2.UI.Consultas
     {
         Expression<Func<Usuarios, bool>> filtro = p => true;
         RepositorioBase<Usuarios> repositorio = new RepositorioBase<Usuarios>();
-        List<Usuarios> list = new List<Usuarios>();
+        public static List<Usuarios> list = new List<Usuarios>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -44,7 +45,9 @@ namespace ComunicacionesMendozaAP2.UI.Consultas
             CBGridView.DataSource = Metodos.FiltrarUsuarios(index, CriterioTextBox.Text, desde, hasta);
             CBGridView.DataBind();
 
+
             CriterioTextBox.Text = FiltroDropDownList.Text.ToString();
+            list = repositorio.GetList(filtro);
         }
 
         public void LlenaReport()
@@ -53,7 +56,7 @@ namespace ComunicacionesMendozaAP2.UI.Consultas
             UsuariosReportViewer.Reset();
             UsuariosReportViewer.LocalReport.ReportPath = Server.MapPath(@"~\UI\Reportes\ListadoDeUsuario.rdlc");
             UsuariosReportViewer.LocalReport.DataSources.Clear();
-            UsuariosReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Usuarios", list));
+            UsuariosReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Usuarios", cUsuarios.list));
             UsuariosReportViewer.LocalReport.Refresh();
         }
     }
